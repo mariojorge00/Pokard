@@ -31,7 +31,7 @@
 #search {
   display: flex;
   position: absolute;
-  right: 10rem;
+  right: 5rem;
   top: 7.5rem;
   z-index: 1;
 }
@@ -41,8 +41,13 @@ header {
   position: relative;
   width: 100%;
   height: 15rem;
-  justify-content: center;
+  justify-content: left;
   padding-left: 20%;
+}
+.Pokard {
+  display: flex;
+  position: relative;
+  width: 40%;
 }
 
 h1 {
@@ -54,6 +59,7 @@ h1 {
   align-items: center;
   font-size: 3rem;
   color: #e2e2e2;
+  caret-color: #0c6ac800;
 }
 .grid {
   display: grid;
@@ -80,6 +86,7 @@ h1 {
   margin: 0;
   background-color: #1e1e1e;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+  caret-color: #0c6ac800;
 }
 .btn {
   display: block;
@@ -120,6 +127,28 @@ hr {
   margin: 0;
   background-color: #36363681;
   box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+.cardExpanded {
+  display: flex;
+  background-color: #00000099;
+  position: fixed;
+  top: 0%;
+  left: 0%;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  border: none;
+}
+.expanded {
+  display: flex;
+  flex-direction: row;
+  background-color: #1e1e1e;
+  width: 100%;
+  height: 100%;
+  color: #eeeeee;
+  border-radius: 0;
 }
 
 .imgTitle1 {
@@ -501,42 +530,12 @@ hr {
   left: 80%;
   transform: translate(-50%, -50%);
 }
-/* .input {
-  padding:0.5rem;
-  width: 2rem;
-  height: 2rem;
-  background: none;
-  border: 3px solid #E2E2E2;
-  border-radius: 50px;
-  box-sizing: border-box;
-  font-size: 1rem;
-  color: #E2E2E2;
-  outline: none;
-  transition: .5s;
-}
-.box:hover input{
-  width: 220px;
-  background: #1E1E1E;
-  border-radius: 20px;
-}
-i{
-  position: absolute;
-  top: 50%;
-  right: 15px;
-  transform: translate(-50%,-50%);
-  font-size: 26px;
-  color: #ffd52d;
-  transition: .2s;
-}
-.box:hover i{
-  opacity: 0;
-  z-index: -1; */
 
 .container {
   display: flex;
   position: relative;
   top: 6.8rem;
-  left: 30.5%;
+  left: 20.5%;
   transform: translate(-50%);
   width: 20%;
   height: 50%;
@@ -607,4 +606,252 @@ i{
 
 .hidden {
   display: none;
+}
+label {
+  font-family: "Segoe UI";
+  color: white;
+  position: relative;
+  top: 4.7rem;
+  left: 5.9rem;
+  caret-color: #0c6ac800;
+}
+form {
+  text-align: left;
+  text-justify: center;
+  justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI";
+}
+.select {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  top: 4.3rem;
+  left: 5rem;
+  width: 8rem;
+  height: 2.5rem;
+  background-color: #323232;
+  border: none;
+  border-radius: 5px;
+  text-align: left;
+  text-justify: center;
+  justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI";
+  color: #e2e2e2c7;
+  font-size: 1.1rem;
+  padding: 0.3rem 1rem 0.3rem 1rem;
+  margin: 0.7rem 0.5rem 0.2rem 0.5rem;
+}
+
+.option {
+  padding: 0 30px 0 10px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  background-color: #1e1e1e;
+  border-top: #222 solid 1px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  pointer-events: none;
+  order: 2;
+  z-index: 1;
+  transition: #1e1e1e 0.4s ease-in-out;
+  box-sizing: border-box;
+  overflow: hidden;
+  white-space: nowrap;
+  border: none;
+  border-radius: 2px;
+}
+
+.option:hover {
+  background: #666;
+}
+
+.select:focus .option {
+  position: relative;
+  pointer-events: all;
+}
+
+option {
+  opacity: 0;
+  position: absolute;
+  left: -99999px;
+}
+
+option:checked {
+  order: 1;
+  z-index: 2;
+  background: #666;
+  border-top: none;
+  position: relative;
+}
+
+option:checked {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  border-top: 3px solid white;
+  position: absolute;
+  right: 10px;
+  top: calc(50% - 2.5px);
+  pointer-events: none;
+  z-index: 3;
+}
+
+option:checked {
+  position: absolute;
+  right: 0;
+  height: 40px;
+  width: 40px;
+  content: "";
+  background: #1e1e1e;
+}
+
+.space {
+  margin: 1rem auto;
+}
+.titleExpanded2 {
+  margin: 0.3rem 0 0.5rem 0;
+  font-size: 1.3rem !important;
+}
+.titleExpanded {
+  margin: 0.3rem 0 0.5rem 0;
+  font-size: 1.7rem !important;
+}
+.titleExpanded3 {
+  margin: 0.3rem 0 0 0;
+  text-align: left;
+  text-justify: left;
+  justify-content: left;
+  align-items: left;
+  font-size: 2.5rem;
+  padding-top:0.5rem;
+}
+.firstColumn {
+  width: 20vw;
+  margin: 3rem 0.8rem 3rem 1.5rem;
+}
+.firstColumn1 {
+  height: contain;
+}
+.firstColumn2 {
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  // align-items:center;
+  margin: 3rem 2.3rem ;
+}
+.secondColumn {
+  display: flex;
+  // justify-content:center;
+  align-items: center;
+  width: 36vw;
+  margin: 6rem 1.3rem 3rem 1.5rem;
+}
+.thirdColumn {
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+  margin: 3rem 1.8rem 3rem 2rem;
+  justify-content: center;
+
+}
+.my-image {
+  width: 27.8rem;
+}
+
+.metricExpanded {
+  margin: 0.35rem 0.5rem;
+  font-size: 1.1rem;
+
+}
+.wrap {
+  justify-content: left;
+  align-items: center;
+}
+.vacioExpanded {
+  background-color: rgba(255, 255, 255, 0.377);
+  margin: 0.3rem;
+}
+.statsNamesExpanded {
+  width: 10rem;
+}
+.namesExpanded {
+  width: 8rem;
+  font-size: 0.95rem;
+  margin: 0.3rem 0;
+  color:rgba(255, 255, 255, 0.664)
+}
+.puntosExpanded {
+  margin: 0.3rem;
+}
+.llenoExpanded {
+  margin: 0.3rem;
+}
+hr {
+  border: none;
+  border-left: 5px solid rgba(255, 255, 255, 0.384);
+  height: 8.8rem;
+  width: 1px;
+  margin: none;
+}
+.barraVertical {
+  display: flex;
+  flex-direction: row;
+  margin-bottom:2rem;
+}
+.barrita {
+  width: 1rem;
+  margin: 1.7rem 0 0 0;
+}
+.japanese {
+  display: block;
+  position: absolute;
+  bottom: auto;
+  top: 3rem;
+  right: auto;
+  left: 1rem;
+  font-family: "Nunito", sans-serif;
+  font-size: 130px;
+  font-weight: 600;
+  word-break: keep-all;
+  word-wrap: normal;
+  transform: translateX(9vw) translateY(27vh);
+  opacity: 0.5;
+  color: rgba(0, 0, 0, 0.67);
+  text-align:left;
+}
+.iconExpanded {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+.b2 {
+  width: 3.5rem;
+  height: 3.5rem;
+}
+.evolution{
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  width:20rem;
+  color:rgba(255, 255, 255, 0.664)
+}
+.each{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0.4rem 0.3rem 0.4rem;
+
+}
+.barrita2{
+  height:5.8rem;
+  margin:0.5rem 0.5rem 0 0 ;
 }

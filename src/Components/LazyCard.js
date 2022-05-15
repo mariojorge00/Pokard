@@ -11,6 +11,7 @@ import { hiddencontext } from "../Functions/Context.js";
 import CardPlaceholder from "./CardPlaceholder";
 import Standarized from "../Functions/Standarized";
 import TypesIcon from "../Functions/TypeIcon";
+import CardExpanded from "./CardExpanded";
 import bug from "../Tipos/bug.svg";
 import dark from "../Tipos/dark.svg";
 import dragon from "../Tipos/dragon.svg";
@@ -29,12 +30,14 @@ import psychic from "../Tipos/psychic.svg";
 import rock from "../Tipos/rock.svg";
 import steel from "../Tipos/steel.svg";
 import water from "../Tipos/water.svg";
+import axios from "axios";
 
 function Carde(result) {
   const [info, setinfo] = useState([]);
   const [desc, setDesc] = useState([]);
   const [types, setTypes] = useState([]);
   const [weak, setWeak] = useState([]);
+  const [expand, setExpand] = useState(false);
   const weakTypes = useContext(weakTypescontext);
   const typeSelect = useContext(typeSelectcontext);
   const { hidden, setHidden } = useContext(hiddencontext);
@@ -42,28 +45,28 @@ function Carde(result) {
   TypesIcon();
 
   useEffect(() => {
-    fetch(`${result.url}`)
-      .then((res) => res.json())
-      .then((json) => {
-        setinfo(json);
-        setTypes(
-          json.types
-            .filter((elem) => elem.type.name)
-            .map((elem) => elem.type.name)
-        );
-        setWeak(
-          json.types
-            .filter((elem) => elem.type.name)
-            .map((elem) => elem.type.name)
-            .map((elem) => weakTypes.findIndex((item) => item === elem))
-            .map((elem) => weakTypes[elem + 1])
-        );
-        fetch(`https://pokeapi.co/api/v2/pokemon-species/${json.id}/`)
-          .then((res) => res.json())
-          .then((json) => {
-            setDesc(json);
-          });
-      });
+    axios.get(`${result.url}`).then((res) => {
+      let json = res.data;
+      setinfo(json);
+      setTypes(
+        json.types
+          .filter((elem) => elem.type.name)
+          .map((elem) => elem.type.name)
+      );
+      setWeak(
+        json.types
+          .filter((elem) => elem.type.name)
+          .map((elem) => elem.type.name)
+          .map((elem) => weakTypes.findIndex((item) => item === elem))
+          .map((elem) => weakTypes[elem + 1])
+      );
+      axios
+        .get(`https://pokeapi.co/api/v2/pokemon-species/${json.id}/`)
+        .then((res) => {
+          let json = res.data;
+          setDesc(json);
+        });
+    });
   }, [result.url, weakTypes]);
 
   useEffect(() => {
@@ -84,8 +87,50 @@ function Carde(result) {
   )
     return <CardPlaceholder />;
 
-  return (
+  return expand ? (
+    <>
+      <button onClick={() => setExpand((p) => !p)} className="cardExpanded">
+        <CardExpanded types={types}info={info} desc={desc} result={result}></CardExpanded>
+      </button>{" "}
+      <motion.li
+        onClick={() => setExpand((p) => !p)}
+        className={`card `}
+        whileHover={{ scale: 1.04 }}
+        whileTap={{ scale: 0.99 }}
+      >
+        <Imagen info={info} />
+        <Titulo Standarized={Standarized} info={info} result={result} />
+        <Description desc={desc} />
+        <Metricas info={info} desc={desc} />
+        <MoreMetrics
+          TypesIcon={TypesIcon}
+          info={info}
+          types={types}
+          bug={bug}
+          dark={dark}
+          dragon={dragon}
+          electric={electric}
+          fairy={fairy}
+          fighting={fighting}
+          fire={fire}
+          flying={flying}
+          ghost={ghost}
+          grass={grass}
+          ground={ground}
+          ice={ice}
+          normal={normal}
+          poison={poison}
+          psychic={psychic}
+          rock={rock}
+          steel={steel}
+          water={water}
+          weak={weak}
+        />
+      </motion.li>
+    </>
+  ) : (
     <motion.li
+      onClick={() => setExpand((p) => !p)}
       className={`card `}
       whileHover={{ scale: 1.04 }}
       whileTap={{ scale: 0.99 }}

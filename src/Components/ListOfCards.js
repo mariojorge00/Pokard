@@ -1,4 +1,4 @@
-import { Header } from './Header';
+import { Header } from "./Header";
 import React, { useState } from "react";
 import LazyCard from "./LazyCard.js";
 import { weakTypescontext, typeSelectcontext } from "../Functions/Context";
@@ -7,28 +7,58 @@ import typesNamescontext from "../Functions/Context2";
 export function ListOfCards({ weakTypes, pokemons, typesNames }) {
   const [inputText, setInputText] = useState("");
   const [inputType, setInputType] = useState("");
-  
-  let inputHandler = (e) => {
+
+  const inputHandler = (e) => {
     if (!e || e.length === 0) return setInputText(new RegExp(/[a-z]/));
     var lowerCase = e.target.value.toLowerCase();
     setInputText(lowerCase);
-    console.log(lowerCase);
   };
-  
-  let listHandler = (e) => {
+
+  const listHandler = (e) => {
     if (!e || e.length === 0) return setInputType(new RegExp(/[a-z]/));
     //convert input text to lower case
     setInputType(e.target.value.toLowerCase());
     console.log(e.target.value.toLowerCase());
   };
+
+  const [sortedPokemons, setSortedPokemons] = useState(pokemons.results);
+
+  const sortHandler = (e) => {
+    let option = e.target.value.toLowerCase();
+
+    if (option === "nada") {
+      setSortedPokemons(pokemons.results);
+    } else if (option === "alfa") {
+      setSortedPokemons(
+        pokemons.results
+          .slice()
+          .sort((a, b) => (a.name > b.name ? 1 : b.name > a.name ? -1 : 0))
+      );
+    } else if (option === "alfareversed") {
+      setSortedPokemons(
+        pokemons.results
+          .slice()
+          .sort((a, b) => (a.name < b.name ? 1 : b.name < a.name ? -1 : 0))
+      );
+    } else if (option === "idreversed") {
+      setSortedPokemons(pokemons.results.slice().reverse());
+    } else return setSortedPokemons(pokemons.results);
+  };
+
   return (
     <div className="wrapper">
-      <Header   listHandler={listHandler} inputHandler={inputHandler} typesNames={typesNames} />
+      <Header
+        sortHandler={sortHandler}
+        listHandler={listHandler}
+        inputHandler={inputHandler}
+        pokemons={pokemons}
+        typesNames={typesNames}
+      />
       <ul className="grid">
         <typesNamescontext.Provider value={typesNames}>
           <weakTypescontext.Provider value={weakTypes}>
             <typeSelectcontext.Provider value={inputType}>
-              {pokemons.results
+              {sortedPokemons
                 .filter(({ name }) => name.match(inputText))
                 .map((result) => (
                   <LazyCard
@@ -37,7 +67,6 @@ export function ListOfCards({ weakTypes, pokemons, typesNames }) {
                     }}
                     key={result.name}
                     {...result}
-                    {...inputText}
                   ></LazyCard>
                 ))}
             </typeSelectcontext.Provider>

@@ -1,7 +1,7 @@
 import React from "react";
 
 
-export default function TypesIcon(
+export default function TypesIcon2(
   typesWeak,
   bug,
   dark,
@@ -26,12 +26,12 @@ export default function TypesIcon(
   else
     return typesWeak.map((type) => {
       return (
-        <div key={Math.random()} className={`icon ${type}`}>
+        <div key={Math.random()} className={`icon ${type} iconExpanded`}>
           <img
             // eslint-disable-next-line no-eval
             src={eval(type)}
             alt=""
-            className="b"
+            className="b b2"
             key={Math.random()}
           />
         </div>
