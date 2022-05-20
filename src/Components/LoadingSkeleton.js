@@ -1,14 +1,14 @@
 import React from "react";
-import CardPlaceholder from "./CardPlaceholder"
+import CardPlaceholder from "./CardPlaceholder";
 function LoadingSkeleton() {
-  let imaginary=['.','.','.','.']
+  let imaginary = [".", ".", ".", ".", ".", ".", ".", "."];
   return (
     <div className="wrapper">
-       <header>
+      <header>
         <h1>POKARD</h1>
         <div className="container">
           <div className="search-box">
-            <input type="text" ></input>
+            <input type="text"></input>
             <span></span>
           </div>
         </div>
@@ -26,4 +26,4 @@ function LoadingSkeleton() {
     </div>
   );
 }
-export default React.memo(LoadingSkeleton,()=>true)
+export default React.memo(LoadingSkeleton, () => true);

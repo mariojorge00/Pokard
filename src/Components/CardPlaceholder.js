@@ -35,4 +35,6 @@ function CardPlaceholder() {
     </motion.li>
   );
 }
-export default React.memo(CardPlaceholder , (prev,next)=> {return true})
+export default React.memo(CardPlaceholder, (prev, next) => {
+  return true;
+});

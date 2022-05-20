@@ -3,6 +3,7 @@ import LoadingSkeleton from "./Components/LoadingSkeleton";
 import React from "react";
 import { useEffect, useState } from "react";
 import "./Styles/App.scss";
+import axios from "axios";
 
 function App() {
   const [pokemons, setPokemons] = useState([]);
@@ -14,31 +15,30 @@ function App() {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      fetch(`https://pokeapi.co/api/v2/pokemon?limit=649`)
-        .then((response) => response.json())
-        .then((json) => {
-          setPokemons(json);
-          fetch("https://pokeapi.co/api/v2/type")
-            .then((res) => res.json())
-            .then((json3) => {
-              json3.results.map((el) =>
-                fetch(`${el.url}`)
-                  .then((res) => res.json())
-                  .then((json) => {
-                    setWeakTypes((prevState) => [
-                      ...prevState,
-                      el.name,
-                      json.damage_relations.double_damage_from
-                        .filter((elem) => elem.name)
-                        .map((elem) => elem.name),
-                    ]);
-                  })
-              );
-              setTypesNames(json3.results.map((el) => el.name));
-            });
-        });
-    }, 0);
+    axios
+      .get(`https://pokeapi.co/api/v2/pokemon?limit=649`)
+      .then((response) => {
+        const json = response.data;
+        setPokemons(json);
+      });
+
+    axios.get("https://pokeapi.co/api/v2/type").then((response) => {
+      const json = response.data;
+      setTypesNames(json.results.map((el) => el.name));
+
+      json.results.map((el) =>
+        axios.get(`${el.url}`).then((res) => {
+          let json3 = res.data;
+          setWeakTypes((prevState) => [
+            ...prevState,
+            el.name,
+            json3.damage_relations.double_damage_from
+              .filter((elem) => elem.name)
+              .map((elem) => elem.name),
+          ]);
+        })
+      );
+    });
   }, []);
 
   if (

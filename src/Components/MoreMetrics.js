@@ -1,7 +1,8 @@
 import React from "react";
-import {Tipos} from './Tipos'
-import {Debilidades} from './Debilidades'
-import {Stats} from './Stats'
+import { Tipos } from "./Tipos";
+import { Debilidades } from "./Debilidades";
+import { Stats } from "./Stats";
+
 export function MoreMetrics({
   TypesIcon,
   info,
@@ -26,15 +27,11 @@ export function MoreMetrics({
   water,
   weaksToShow,
   weak,
-  statsEval,
-}) 
-
-{
-  
+}) {
   function weaksToShow(weaks) {
     if (weaks.length === 1) return weaks[0];
     else if (weaks[0].length < 4) return weaks[0];
-    else return weaks[1]; 
+    else return weaks[1];
   }
   return (
     <div className="moreMetrics">
@@ -84,7 +81,7 @@ export function MoreMetrics({
           water={water}
         />
       </div>
-      <Stats statsEval={statsEval} info={info} />
+      <Stats info={info} />
     </div>
   );
 }

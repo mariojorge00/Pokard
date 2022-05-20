@@ -1,4 +1,3 @@
-
 export default function Standarized(info) {
   if (!info || info.length === 0) return 0;
 
