@@ -130,7 +130,7 @@ hr {
 }
 .cardExpanded {
   display: flex;
-  background-color: #00000099;
+  background-color: #000000c0;
   position: fixed;
   top: 0%;
   left: 0%;
@@ -717,10 +717,12 @@ option:checked {
 .titleExpanded2 {
   margin: 0.3rem 0 0.5rem 0;
   font-size: 1.3rem !important;
+  text-shadow: 0 0 12px rgb(0 0 0 / 25%);
 }
 .titleExpanded {
   margin: 0.3rem 0 0.5rem 0;
   font-size: 1.7rem !important;
+  text-shadow: 0 0 12px rgb(0 0 0 / 25%);
 }
 .titleExpanded3 {
   margin: 0.3rem 0 0 0;
@@ -730,6 +732,7 @@ option:checked {
   align-items: left;
   font-size: 2.5rem;
   padding-top:0.5rem;
+  text-shadow: 0 0 12px rgb(0 0 0 / 25%);
 }
 .firstColumn {
   width: 20vw;
@@ -769,6 +772,7 @@ option:checked {
 .metricExpanded {
   margin: 0.35rem 0.5rem;
   font-size: 1.1rem;
+  text-shadow: 0 0 12px rgb(0 0 0 / 25%);
 
 }
 .wrap {
@@ -786,7 +790,8 @@ option:checked {
   width: 8rem;
   font-size: 0.95rem;
   margin: 0.3rem 0;
-  color:rgba(255, 255, 255, 0.664)
+  color:rgba(255, 255, 255, 0.664);
+  text-shadow: 0 0 12px rgb(0 0 0 / 25%);
 }
 .puntosExpanded {
   margin: 0.3rem;
@@ -796,10 +801,11 @@ option:checked {
 }
 hr {
   border: none;
-  border-left: 5px solid rgba(255, 255, 255, 0.384);
+  background-color: rgba(255, 255, 255, 0.384);
   height: 8.8rem;
-  width: 1px;
+  width: 3px;
   margin: none;
+  border-radius: 5px;
 }
 .barraVertical {
   display: flex;
@@ -807,7 +813,7 @@ hr {
   margin-bottom:2rem;
 }
 .barrita {
-  width: 1rem;
+  width: 5px;
   margin: 1.7rem 0 0 0;
 }
 .japanese {
@@ -849,9 +855,17 @@ hr {
   justify-content: center;
   align-items: center;
   margin: 1rem 0.4rem 0.3rem 0.4rem;
-
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.295);
 }
 .barrita2{
-  height:5.8rem;
+  height:6rem;
   margin:0.5rem 0.5rem 0 0 ;
+}
+.region{
+  display: flex;
+    color: #ECECEC;
+    font-size: 1.1rem;
+    transform: rotate(-90deg) translateY(-1.5rem) translateX(-11.3rem);
+    transform-origin: 0 100%;
+    text-shadow: 0 0 12px rgb(0 0 0 / 25%);
 }

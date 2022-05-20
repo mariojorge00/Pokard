@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import getAverageColor from "get-average-color";
-import { Titulo } from "./Titulo";
-import { Description } from "./Description";
+import { motion } from "framer-motion";
 import Standarized from "../Functions/Standarized";
 import { StatsExpanded } from "./StatsExpanded";
 import TypesIcon2 from "../Functions/TypeIcon2";
@@ -32,6 +31,8 @@ export default function CardExpanded({ info, desc, types, result }) {
   const [color, setColor] = useState([]);
   const [japanese, setJapanese] = useState([]);
   const [pokemons, setPokemons] = useState([]);
+  const [image, setImage] = useState([]);
+  const [region, setRegion] = useState([]);
   const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${info.id}.png`;
 
   useEffect(() => {
@@ -53,22 +54,23 @@ export default function CardExpanded({ info, desc, types, result }) {
           setAbilitiesInfo((prevState) => [...prevState, json2]);
         })
       );
+    setRegion(desc.pokedex_numbers[1]?.pokedex?.name);
     setJapanese(desc.names[0].name);
-    console.log(desc.names[0].name);
+
     axios.get(desc.evolution_chain.url).then((res) => {
       let json2 = res.data;
 
-      setEvolutionsInfo([json2.chain.species.name]);
-      if (json2.chain.evolves_to[0].species.name) {
+      setEvolutionsInfo([json2.chain.species?.name]);
+      if (json2.chain?.evolves_to[0]?.species?.name) {
         setEvolutionsInfo((prevState) =>
-          [prevState, json2.chain.evolves_to[0].species.name].flat()
+          [prevState, json2.chain.evolves_to[0].species?.name].flat()
         );
       }
-      if (json2.chain.evolves_to[0].evolves_to[0].species.name) {
+      if (json2.chain?.evolves_to[0]?.evolves_to[0]?.species?.name) {
         setEvolutionsInfo((prevState) =>
           [
             prevState,
-            json2.chain.evolves_to[0].evolves_to[0].species.name,
+            json2.chain?.evolves_to[0].evolves_to[0].species?.name,
           ].flat()
         );
       }
@@ -78,6 +80,7 @@ export default function CardExpanded({ info, desc, types, result }) {
       .then((response) => response.blob())
       .then((image) => {
         const localUrl = URL.createObjectURL(image);
+        setImage(localUrl);
         getAverageColor(localUrl).then((rgb) => {
           setColor(rgb);
         });
@@ -103,14 +106,18 @@ export default function CardExpanded({ info, desc, types, result }) {
           );
       });
   }, [evolutionsInfo]);
-  console.log(pokemons);
+
+    //fetch evolution images on useEffect()
 
   return (
-    <div
-      className={`cardSkeleton expanded `}
-      style={{
-        backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b})`,
+    <motion.div
+      initial={{ opacity: 0 }}
+      transition={{ delay: 0.1, duration: 0.4 }}
+      animate={{
+        opacity: 1,
       }}
+      className={`cardSkeleton expanded `}
+      style={{ backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b})` }}
     >
       <span className="japanese">{japanese}</span>
       <div className="firstColumn">
@@ -128,12 +135,20 @@ export default function CardExpanded({ info, desc, types, result }) {
             <div>
               <p className="metricExpanded">Weigth: {info.weight / 10}kg</p>
             </div>
+            <span className="region">Region: {region}</span>
           </div>
         </div>
       </div>
       <div className="secondColumn">
         {" "}
-        <img className="my-image" src={imageUrl} alt=""></img>
+        <motion.img
+          // initial={{ opacity: 0 }}
+          // animate={{ opacity: 1 }}
+          // transition={{ delay: 0, duration: 0.3 }}
+          className="my-image"
+          src={image}
+          alt=""
+        ></motion.img>
       </div>
 
       <div className="thirdColumn">
@@ -160,16 +175,46 @@ export default function CardExpanded({ info, desc, types, result }) {
             water
           )}
         </div>
-        <h1 className="titleExpanded3">Base Stats:</h1>
-        <div className="barraVertical">
+        <motion.h1
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.2 }}
+          className="titleExpanded3"
+        >
+          Base Stats:
+        </motion.h1>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.2 }}
+          className="barraVertical"
+        >
           <hr className="barrita"></hr>
           <StatsExpanded info={info}></StatsExpanded>
-        </div>
-        <h1 className="titleExpanded3">Evolution chain:</h1> 
-        <div className='evolution'>
-        <hr className= 'barrita barrita2'></hr>
+        </motion.div>
+        <motion.h1
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.35, duration: 0.2 }}
+          className="titleExpanded3"
+        >
+          Evolution chain:
+        </motion.h1>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.3 }}
+          className="evolution"
+        >
+          <hr className="barrita barrita2"></hr>
           {pokemons.map((elem) => (
-            <div className='each'>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4, duration: 0.3 }}
+              className="each"
+              key={Math.random()}
+            >
               <img
                 key={Math.random()}
                 style={{ width: "5.5rem" }}
@@ -177,17 +222,18 @@ export default function CardExpanded({ info, desc, types, result }) {
                 alt=""
               ></img>
               <div>{elem.name}</div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
+
+      </div>
         {/* {evolutionsInfo.map((el) => (
         <div key={Math.random()} className="space">
           {el}
         </div>
       ))} */}
         {/* <Description className="descExpanded" desc={desc} /> */}
-      </div>
-
+     
       {/* {MoveInfo.map((el) => (
         <div key={Math.random()} className="space">
           {`name: ${el.name}  `}
@@ -199,12 +245,13 @@ export default function CardExpanded({ info, desc, types, result }) {
           <br></br>
         </div>
       ))} */}
+     
       {/* {abilitiesInfo.map((el) => (
         <div key={Math.random()} className="space">
           {el.name}:
           {el.effect_entries.find((elem) => elem.language.name === "en").effect}
         </div>
       ))} */}
-    </div>
+    </motion.div>
   );
 }
