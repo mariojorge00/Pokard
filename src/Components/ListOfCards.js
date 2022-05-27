@@ -1,7 +1,11 @@
 import { Header } from "./Header";
 import React, { useState } from "react";
 import LazyCard from "./LazyCard.js";
-import { weakTypescontext, typeSelectcontext } from "../Functions/Context";
+import {
+  weakTypescontext,
+  typeSelectcontext,
+  pokemonscontext,
+} from "../Functions/Context";
 import typesNamescontext from "../Functions/Context2";
 
 export function ListOfCards({ weakTypes, pokemons, typesNames }) {
@@ -58,17 +62,19 @@ export function ListOfCards({ weakTypes, pokemons, typesNames }) {
         <typesNamescontext.Provider value={typesNames}>
           <weakTypescontext.Provider value={weakTypes}>
             <typeSelectcontext.Provider value={inputType}>
-              {sortedPokemons
-                .filter(({ name }) => name.match(inputText))
-                .map((result) => (
-                  <LazyCard
-                    whileHover={{
-                      scale: 1.1,
-                    }}
-                    key={result.name}
-                    {...result}
-                  ></LazyCard>
-                ))}
+              <pokemonscontext.Provider value={pokemons}>
+                {sortedPokemons
+                  .filter(({ name }) => name.match(inputText))
+                  .map((result) => (
+                    <LazyCard
+                      whileHover={{
+                        scale: 1.1,
+                      }}
+                      key={result.name}
+                      {...result}
+                    ></LazyCard>
+                  ))}
+              </pokemonscontext.Provider>
             </typeSelectcontext.Provider>
           </weakTypescontext.Provider>
         </typesNamescontext.Provider>

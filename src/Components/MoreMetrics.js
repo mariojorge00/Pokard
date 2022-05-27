@@ -28,6 +28,7 @@ export function MoreMetrics({
   weaksToShow,
   weak,
 }) {
+  // eslint-disable-next-line no-redeclare
   function weaksToShow(weaks) {
     if (weaks.length === 1) return weaks[0];
     else if (weaks[0].length < 4) return weaks[0];

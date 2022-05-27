@@ -89,8 +89,19 @@ function Carde(result) {
 
   return expand ? (
     <>
-      <motion.button initial={{opacity: 0}} animate={{opacity: 1}} transition={{ delay:0 ,duration:0.2}}onClick={() => setExpand((p) => !p)} className="cardExpanded">
-        <CardExpanded types={types}info={info} desc={desc} result={result}></CardExpanded>
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0, duration: 0.2 }}
+        onClick={() => setExpand((p) => !p)}
+        className="cardExpanded"
+      >
+        <CardExpanded
+          types={types}
+          info={info}
+          desc={desc}
+          result={result}
+        ></CardExpanded>
       </motion.button>{" "}
       <motion.li
         onClick={() => setExpand((p) => !p)}

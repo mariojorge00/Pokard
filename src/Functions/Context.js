@@ -6,3 +6,4 @@ export const hiddencontext = createContext({
   hidden: "visible",
   setHidden: () => {},
 });
+export const pokemonscontext = createContext();
