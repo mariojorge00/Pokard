@@ -28,7 +28,7 @@ import rock from "../Tipos/rock.svg";
 import steel from "../Tipos/steel.svg";
 import water from "../Tipos/water.svg";
 
-export default function CardExpanded({ info, desc, types, result }) {
+export default function CardExpanded({ info, desc, types, result , updateExpand}) {
   // eslint-disable-next-line no-unused-vars
   const [MoveInfo, setMoveInfo] = useState([]);
   const [abilitiesInfo, setAbilitiesInfo] = useState([]);
@@ -40,7 +40,7 @@ export default function CardExpanded({ info, desc, types, result }) {
   const [region, setRegion] = useState('');
   const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${info.id}.png`;
   const pokemonsList = useContext(pokemonscontext);
-
+   
   useEffect(() => {
     info.moves
       .slice(0, 4)
@@ -150,6 +150,7 @@ export default function CardExpanded({ info, desc, types, result }) {
         water={water}
         info={info}
         pokemons={pokemons}
+        updateExpand={updateExpand}
       />
       {/* {evolutionsInfo.map((el) => (
         <div key={Math.random()} className="space">

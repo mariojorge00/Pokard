@@ -52,7 +52,7 @@ export function Header({ listHandler, typesNames, inputHandler, sortHandler }) {
       </form>
       <form action="">
         <label>FILTER</label>
-        <select onChange={listHandler} className="select">
+        <select onChange={listHandler} className="select" onmousedown="if(this.options.length>8){this.size=5;}"onchange="this.blur()"  onblur="this.size=0;">
           <option
             className=" option"
             type="radio"
@@ -66,7 +66,7 @@ export function Header({ listHandler, typesNames, inputHandler, sortHandler }) {
           {typesNames
             .filter((e) => !e.match("unknown") && !e.match("shadow"))
             .map((tipo, index) => (
-              <option key={index} value={tipo}>
+              <option key={index} value={tipo} className='option'>
                 {tipo}
               </option>
             ))}

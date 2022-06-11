@@ -43,6 +43,9 @@ function Carde(result) {
   const { hidden, setHidden } = useContext(hiddencontext);
   Standarized();
   TypesIcon();
+   const updateExpand = (state) => {
+    setExpand(state);
+  }
 
   useEffect(() => {
     axios.get(`${result.url}`).then((res) => {
@@ -93,7 +96,6 @@ function Carde(result) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0, duration: 0.2 }}
-        onClick={() => setExpand((p) => !p)}
         className="cardExpanded"
       >
         <CardExpanded
@@ -101,7 +103,10 @@ function Carde(result) {
           info={info}
           desc={desc}
           result={result}
-        ></CardExpanded>
+          updateExpand={updateExpand}
+        >
+         
+        </CardExpanded>
       </motion.button>{" "}
       <motion.li
         onClick={() => setExpand((p) => !p)}

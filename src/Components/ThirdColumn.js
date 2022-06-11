@@ -25,9 +25,18 @@ export function ThirdColumn({
   water,
   info,
   pokemons,
+  updateExpand,
 }) {
+  
   return (
     <div className="thirdColumn">
+      <motion.button
+        onClick={() => updateExpand((p) => !p)}
+        whileHover={{ scale: 1.17 }}
+        whileTap={{ scale: 0.99 }}
+        animate={{rotate: -135}}
+        className="boton arrow arrow-left"
+      ></motion.button>
       <div className="types-side">
         {TypesIcon2(
           types,

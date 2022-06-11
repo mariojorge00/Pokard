@@ -20,7 +20,6 @@ export function ListOfCards({ weakTypes, pokemons, typesNames }) {
 
   const listHandler = (e) => {
     if (!e || e.length === 0) return setInputType(new RegExp(/[a-z]/));
-    //convert input text to lower case
     setInputType(e.target.value.toLowerCase());
     console.log(e.target.value.toLowerCase());
   };
